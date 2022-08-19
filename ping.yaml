@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ping
+    component: ping
+  name: ping
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: ping
+      component: ping
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ping
+        component: ping
+    spec:
+      containers:
+      - env:
+        - name: PINGHOST
+          value: 10.131.2.9
+        image: quay.io/rhn_support_sreber/ping@sha256:79ed6a0400c87dbfb3c6bb67241ac83570aaaedbfeff5070c116dba0b2e70210
+        imagePullPolicy: IfNotPresent
+        name: ping
+        ports:
+        - containerPort: 8080
+          name: ping
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
