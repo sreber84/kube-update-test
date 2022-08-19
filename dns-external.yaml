@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dns-external
+    component: dns-external
+  name: dns-external
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: dns-external
+      component: dns-external
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dns-external
+        component: dns-external
+    spec:
+      containers:
+      - env:
+        - name: DNSHOSTNAME
+          value: getfedora.org
+        image: quay.io/rhn_support_sreber/java-dns@sha256:c2a7af430822c83d365436b791825f83e926df28866eea9cff5b5bc996af9780
+        imagePullPolicy: IfNotPresent
+        name: dns-external
+        ports:
+        - containerPort: 8080
+          name: dns-external
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
