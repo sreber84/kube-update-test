@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: curl-ip
+    component: curl-ip
+  name: curl-ip
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: curl-ip
+      component: curl-ip
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: curl-ip
+        component: curl-ip
+    spec:
+      containers:
+      - env:
+        - name: CURLHOST
+          value: https://172.30.0.1/version
+        image: quay.io/rhn_support_sreber/curl@sha256:bc9c33e9a2b748f6b2da1983714e70951b35667ccd4cf9c12b4f0f502b5e5950
+        imagePullPolicy: IfNotPresent
+        name: curl-ip
+        ports:
+        - containerPort: 8080
+          name: curl-ip
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
