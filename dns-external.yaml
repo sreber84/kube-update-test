@@ -29,7 +29,7 @@ spec:
       - env:
         - name: DNSHOSTNAME
           value: getfedora.org
-        image: quay.io/rhn_support_sreber/java-dns@sha256:c2a7af430822c83d365436b791825f83e926df28866eea9cff5b5bc996af9780
+        image: quay.io/rhn_support_sreber/java-dns@sha256:2211e8072ed908fef596173822fb099798801c2cb550f6ecf88538d449b39a65
         imagePullPolicy: IfNotPresent
         name: dns-external
         ports:
