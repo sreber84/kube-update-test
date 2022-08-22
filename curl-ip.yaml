@@ -29,7 +29,7 @@ spec:
       - env:
         - name: CURLHOST
           value: https://172.30.0.1/version
-        image: quay.io/rhn_support_sreber/curl@sha256:bc9c33e9a2b748f6b2da1983714e70951b35667ccd4cf9c12b4f0f502b5e5950
+        image: quay.io/rhn_support_sreber/curl@sha256:24ec2f92371d60e71cf5e705185cfb63bd788042c2a6ad505ad17b51ed37ecb0
         imagePullPolicy: IfNotPresent
         name: curl-ip
         ports:
