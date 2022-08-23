@@ -25,6 +25,16 @@ spec:
         app: ping
         component: ping
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - ping
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: PINGHOST
