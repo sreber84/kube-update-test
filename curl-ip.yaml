@@ -25,6 +25,16 @@ spec:
         app: curl-ip
         component: curl-ip
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - curl-ip
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: CURLHOST

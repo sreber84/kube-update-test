@@ -25,6 +25,16 @@ spec:
         app: dns-intra
         component: dns-intra
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - dns-intra
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: DNSHOSTNAME

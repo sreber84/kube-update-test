@@ -25,6 +25,16 @@ spec:
         app: dns-external
         component: dns-external
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - dns-external
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: DNSHOSTNAME

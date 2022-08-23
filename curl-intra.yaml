@@ -25,6 +25,16 @@ spec:
         app: curl-intra
         component: curl-intra
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - curl-intra
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: CURLHOST
