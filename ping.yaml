@@ -38,8 +38,8 @@ spec:
       containers:
       - env:
         - name: PINGHOST
-          value: 10.131.2.9
-        image: quay.io/rhn_support_sreber/ping@sha256:0c0a99d19ea8dd4357d4bdd08a249e8644fc912cb20561c6732bf05c0badb019
+          value: 10.130.2.18
+        image: quay.io/rhn_support_sreber/ping:latest
         imagePullPolicy: IfNotPresent
         name: ping
         ports:

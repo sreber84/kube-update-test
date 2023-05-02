@@ -39,7 +39,7 @@ spec:
       - env:
         - name: CURLHOST
           value: https://kubernetes.default.svc/version
-        image: quay.io/rhn_support_sreber/curl@sha256:24ec2f92371d60e71cf5e705185cfb63bd788042c2a6ad505ad17b51ed37ecb0
+        image: quay.io/rhn_support_sreber/curl:latest
         imagePullPolicy: IfNotPresent
         name: curl-intra
         ports:
